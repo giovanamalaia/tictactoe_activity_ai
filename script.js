@@ -9,9 +9,12 @@ const restartBtn     = document.getElementById('restart');
 
 let state = createInitialState();
 
+// Mapeamento de identificadores internos para emojis na interface
+const SYMBOL = { X: '\u{1F431}', O: '\u{1F436}' };
+
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
+    cell.textContent = SYMBOL[state.board[i]] ?? '';
     cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
@@ -40,7 +43,7 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      setStatus(`Player ${SYMBOL[result.winner]} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +53,13 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`Player ${SYMBOL[state.current]}'s turn`);
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`Player ${SYMBOL.X}'s turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +67,4 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+setStatus(`Player ${SYMBOL.X}'s turn`);

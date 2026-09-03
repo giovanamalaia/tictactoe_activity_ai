@@ -125,12 +125,12 @@ h1 {
   cursor: default;
 }
 
+/* Os emojis de gato e cachorro substituem os símbolos X e O */
 .cell.x {
-  color: #f97316;
+  /* O emoji  tem cor própria, não precisa de estilo adicional */
 }
-
 .cell.o {
-  color: #38bdf8;
+  /* O emoji  tem cor própria, não precisa de estilo adicional */
 }
 
 .cell.winning {
